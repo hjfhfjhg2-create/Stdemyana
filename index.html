@@ -101,7 +101,7 @@ main{max-width:1100px;margin:auto;padding:16px 14px 120px}
 .sugg small{color:var(--muted)}
 .tag{font-size:11px;background:var(--green-bg);color:var(--green);padding:2px 8px;border-radius:20px;font-weight:700}
 .table-wrap{overflow-x:auto;border-radius:14px;border:1px solid var(--border)}
-table{width:100%;border-collapse:collapse;min-width:560px}
+table{width:100%;border-collapse:collapse;min-width:640px}
 th{background:var(--header);color:#fff;padding:11px 8px;font-size:14px;white-space:nowrap}
 td{padding:9px 8px;border-bottom:1px solid var(--border);text-align:center;font-size:14px}
 tr:last-child td{border-bottom:none}
@@ -364,7 +364,7 @@ details.pf canvas{display:block;margin:auto;max-width:210px;height:auto;border-r
         <div class="muted" id="attDayLbl" style="margin:10px 0 14px"></div>
         <div class="table-wrap">
           <table>
-            <thead><tr><th>م</th><th>الاسم</th><th>التاريخ</th><th>الوقت</th><th>بونص الحضور المبكر</th><th>حذف</th></tr></thead>
+            <thead><tr><th>م</th><th>الاسم</th><th>الأسرة</th><th>التاريخ</th><th>الوقت</th><th>بونص الحضور المبكر</th><th>حذف</th></tr></thead>
             <tbody id="attBody"></tbody>
           </table>
         </div>
@@ -615,8 +615,8 @@ function renderAtt(){
   $('#attDayLbl').textContent=weekday(date)+' — '+fmtDate(date);
   $('#attBody').innerHTML=rows.length?rows.map((a,i)=>{
     const m=mById(a.memberId);
-    return '<tr><td>'+(i+1)+'</td><td class="nm"><a data-act="profile" data-id="'+esc(a.memberId)+'">'+esc(m?m.name:'(محذوف)')+'</a></td><td>'+fmtDate(a.date)+'</td><td>'+fmtTime(a.time)+'</td><td><input class="bonus" type="text" data-id="'+a.id+'" value="'+esc(a.bonus)+'" placeholder="—"></td><td><button class="btn danger sm" data-act="delAtt" data-id="'+a.id+'">🗑️</button></td></tr>';
-  }).join(''):'<tr><td colspan="6" class="empty">لا يوجد حضور مسجل في هذا اليوم</td></tr>';
+    return '<tr><td>'+(i+1)+'</td><td class="nm"><a data-act="profile" data-id="'+esc(a.memberId)+'">'+esc(m?m.name:'(محذوف)')+'</a></td><td>'+esc(m&&m.family?m.family:'—')+'</td><td>'+fmtDate(a.date)+'</td><td>'+fmtTime(a.time)+'</td><td><input class="bonus" type="text" data-id="'+a.id+'" value="'+esc(a.bonus)+'" placeholder="—"></td><td><button class="btn danger sm" data-act="delAtt" data-id="'+a.id+'">🗑️</button></td></tr>';
+  }).join(''):'<tr><td colspan="7" class="empty">لا يوجد حضور مسجل في هذا اليوم</td></tr>';
   $('#attTotal').textContent=rows.length;
 }
 $('#attBody').addEventListener('input',e=>{
